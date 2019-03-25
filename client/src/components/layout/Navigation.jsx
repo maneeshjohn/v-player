@@ -5,6 +5,8 @@ import {
   Menu,  
 } from 'semantic-ui-react'
 
+import GoogleOauth from '../auth/GoogleOauth'
+
 const Navigation = () =>
   <div className="Navigation">
     <Menu
@@ -22,12 +24,7 @@ const Navigation = () =>
             inverted>
             Log in
           </Button>
-          <Button
-            as='a'
-            inverted
-            style={{ marginLeft: '0.5em' }}>
-            Sign Up
-          </Button>
+          <GoogleOauth />
         </Menu.Item>
       </Container>
     </Menu>
