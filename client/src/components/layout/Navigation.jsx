@@ -22,7 +22,7 @@ const Navigation = () =>
           <Button
             as='a'
             inverted>
-            Log in
+            Streams
           </Button>
           <GoogleOauth />
         </Menu.Item>
