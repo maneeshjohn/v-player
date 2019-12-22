@@ -1,44 +1,67 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { signIn, signOut } from '../../redux/actions'
+import { config } from '../../config'
 import { Button } from 'semantic-ui-react'
 
-const GoogleOauth = props => {
-
-  const [auth, setAuth] = useState('hjg')
+const GoogleOauth = ({
+  isSignedIn,
+  signIn,
+  signOut
+}) => {
 
   useEffect(() => {
     window.gapi.load('client:auth2' , () => {      
       window.gapi.client.init({
-        clientId: '1043469417942-mflbempggo76305000aru014bcv3nmrf.apps.googleusercontent.com',
+        clientId: config.clientId,
         scope: 'email'
       }).then(() => {
         const oauth = window.gapi.auth2.getAuthInstance()
-        setAuth(oauth.isSignedIn.get())
+        onAuthChange(oauth.isSignedIn.get(), oauth.currentUser)
       })
     })
-  }, [auth])
+  }, [])
 
-  const login = () => {
-    if(!auth){
-      let oauth = window.gapi.auth2.getAuthInstance()
-      oauth.signIn().then(() => setAuth(oauth.isSignedIn.get()))
-    }
-
-    if(auth === true){
-      let oauth = window.gapi.auth2.getAuthInstance()      
-      oauth.signOut().then(() => setAuth(oauth.isSignedIn.get()))
-    }
+  const onAuthChange = (auth, user) => {
+    if(auth){ signIn(user.get().getId()) }
+     else { signOut() }
   }
 
-  const buttonText = auth === true? 'Name': 'Sign in'
+  const onSignIn = () => {
+    let oauth = window.gapi.auth2.getAuthInstance()
+    oauth.signIn().then(() => onAuthChange(oauth.isSignedIn.get(), oauth.currentUser))
+  }
+
+  const onSignOut = () => {
+    let oauth = window.gapi.auth2.getAuthInstance()
+    oauth.signOut().then(() => onAuthChange(oauth.isSignedIn.get()))
+  }
+
+  const buttonConfig = {
+    text: isSignedIn? 'Sign out': 'Sign in',
+    action: isSignedIn? onSignOut: onSignIn,
+    color: isSignedIn? 'red': 'green'
+  }
+
+  const { text, action, color } = buttonConfig
   return(
     <Button
       as='a'
+      color={ color }
       inverted
-      onClick={login}
+      onClick={ action }
       style={{ marginLeft: '0.5em' }}>
-      {buttonText}
+      <i className="google icon" />
+      { text }
     </Button>
   )
 }
 
-export default GoogleOauth
+const mapStateToProps = state => ({
+  isSignedIn: state.auth.isSignedIn
+})
+
+export default connect(
+  mapStateToProps,
+  { signIn, signOut }
+)(GoogleOauth)

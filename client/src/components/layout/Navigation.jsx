@@ -7,27 +7,26 @@ import {
 
 import GoogleOauth from '../auth/GoogleOauth'
 
-const Navigation = () =>
-  <div className="Navigation">
-    <Menu
-      fixed="top"
-      inverted>
-      <Container>
-        <Menu.Item
-          as="h3"
-          header>
-          V Player
-        </Menu.Item>
-        <Menu.Item position='right'>
-          <Button
-            as='a'
-            inverted>
-            Streams
-          </Button>
-          <GoogleOauth />
-        </Menu.Item>
-      </Container>
-    </Menu>
-  </div>
+const Navigation = () => (
+  <Menu
+    fixed="top"
+    inverted>
+    <Container>
+      <Menu.Item
+        as="h3"
+        header>
+        V Player
+      </Menu.Item>
+      <Menu.Item position='right'>
+        <Button
+          as='a'
+          inverted>
+          Streams
+        </Button>
+        <GoogleOauth />
+      </Menu.Item>
+    </Container>
+  </Menu>
+)
 
 export default Navigation

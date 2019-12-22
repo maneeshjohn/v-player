@@ -1,19 +1,14 @@
 import React from 'react'
-import {
-  Container,
-  Grid,
-  Header,
-  Segment
-} from 'semantic-ui-react'
+import { Container, Grid, Header, Segment } from 'semantic-ui-react'
 
-const PlayList = () => {
+const StreamList = () => {
 
   return(
-    <div className="PlayList">
+    <div>
       <Container>
         <Segment padded>
           <Header as="h5">All Streams</Header>
-          <Grid columns={3}>
+          <Grid columns={ 3 }>
             <Grid.Row>
               <Grid.Column>
                 <Segment
@@ -47,4 +42,4 @@ const PlayList = () => {
   )
 }
 
-export default PlayList
+export { StreamList }
