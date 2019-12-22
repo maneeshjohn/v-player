@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Navigation from './components/layout/Navigation'
 import {
     StreamList,
-    StreamNew,
+    NewStream,
     StreamView,
     StreamShow,
     StreamDelete
@@ -20,7 +20,7 @@ const Router = () => (
         <Route
             exact
             path="/new"
-            component={ StreamNew }
+            component={ NewStream }
         />
         <Route
             exact
