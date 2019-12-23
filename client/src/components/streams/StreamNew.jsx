@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Segment, Header, Form, Button } from 'semantic-ui-react'
 import useFormidable from '../hooks/formidable'
-import { createStream } from '../../redux/actions/streamActions'
+import { createStream } from '../../redux/actions'
 
 const StreamNew = props => {
     const formidable = useFormidable({
@@ -55,9 +55,7 @@ const StreamNew = props => {
     )
 }
 
-const NewStream = connect(
+export default connect(
     null,
     { createStream }
 )(StreamNew)
-
-export { NewStream }

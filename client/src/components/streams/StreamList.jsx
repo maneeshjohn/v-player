@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import { Container, Grid, Header, Segment } from 'semantic-ui-react'
+import { fetchStreams } from '../../redux/actions'
 
-const StreamList = () => {
+const StreamList = props => {
+
+  useEffect(() => {
+    props.fetchStreams()
+  }, [])
 
   return(
     <div>
@@ -42,4 +48,11 @@ const StreamList = () => {
   )
 }
 
-export { StreamList }
+const mapStateToProps = state => ({
+  streams: state.streams
+})
+
+export default connect(
+  mapStateToProps,
+  { fetchStreams }
+)(StreamList)

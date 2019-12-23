@@ -6,4 +6,4 @@ const StreamShow = () => (
     </div>
 )
 
-export { StreamShow }
+export default StreamShow
