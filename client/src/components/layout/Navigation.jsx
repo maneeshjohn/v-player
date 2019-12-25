@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   Button,
   Container,
@@ -12,11 +13,13 @@ const Navigation = () => (
     fixed="top"
     inverted>
     <Container>
-      <Menu.Item
-        as="h3"
-        header>
-        V Player
-      </Menu.Item>
+      <Link to="/">
+        <Menu.Item
+          as="h3"
+          header>
+          V Player
+        </Menu.Item>
+      </Link>
       <Menu.Item position='right'>
         <Button
           as='a'

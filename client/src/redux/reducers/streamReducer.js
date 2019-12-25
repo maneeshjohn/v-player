@@ -7,6 +7,7 @@ import {
 } from '../actions/types'
 
 export default (state = {}, action) => {
+
     switch(action.type){
         case FETCH_STREAMS:
             const streams = {}
@@ -22,7 +23,8 @@ export default (state = {}, action) => {
             return { ...state, [action.payload.id]: action.payload }
         case DELETE_STREAM:
             const oldStreams = { ...state }
-            delete streams[action.payload]
+            if(oldStreams[action.payload])
+                delete oldStreams[action.payload]
             return oldStreams
         default:
             return state

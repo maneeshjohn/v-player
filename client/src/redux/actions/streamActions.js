@@ -1,4 +1,5 @@
 import streams from '../../apis/streams'
+import history from '../../config/history'
 import {
     CREATE_STREAM,
     FETCH_STREAMS,
@@ -7,12 +8,14 @@ import {
     DELETE_STREAM
 } from './types'
 
-export const createStream = data => async dispatch => {
-    const response = await streams.post('/streams', data)
+export const createStream = data => async (dispatch, getState) => {
+    const { userId } = getState().auth
+    const response = await streams.post('/streams', { ...data, userId })
     dispatch({
         type: CREATE_STREAM,
         payload: response.data
     })
+    history.push('/')
 }
 
 export const fetchStreams = () => async dispatch => {
@@ -37,6 +40,7 @@ export const editStream = (id, data) => async dispatch => {
         type: EDIT_STREAM,
         payload: response.data
     })
+    history.push('/')
 }
 
 export const deleteStream = (id, data) => async dispatch => {
@@ -45,4 +49,5 @@ export const deleteStream = (id, data) => async dispatch => {
         type: DELETE_STREAM,
         payload: id
     })
+    history.push('/')
 }

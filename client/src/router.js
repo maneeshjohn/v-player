@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { Router, Route, Switch } from 'react-router-dom'
+import history from './config/history'
 import Navigation from './components/layout/Navigation'
 import Spinner from './components/common/Spinner'
 const StreamList = React.lazy(() => import('./components/streams/StreamList'))
@@ -8,37 +9,39 @@ const StreamNew = React.lazy(() => import('./components/streams/StreamNew'))
 const StreamShow = React.lazy(() => import('./components/streams/StreamShow'))
 const StreamView = React.lazy(() => import('./components/streams/StreamView'))
 
-const Router = () => (
-    <BrowserRouter>
+const AppRouter = () => (
+    <Router history={ history }>
         <Navigation />
         <Suspense fallback={ <Spinner /> }>
-            <Route
-                exact
-                path="/"
-                component={ StreamList }
-            />
-            <Route
-                exact
-                path="/new"
-                component={ StreamNew }
-            />
-            <Route
-                exact
-                path="/view"
-                component={ StreamView }
-            />
-            <Route
-                exact
-                path="/show"
-                component={ StreamShow }
-            />
-            <Route
-                exact
-                path="/delete"
-                component={ StreamDelete }
-            />
+            <Switch>
+                <Route
+                    exact
+                    path="/"
+                    component={ StreamList }
+                />
+                <Route
+                    exact
+                    path="/new"
+                    component={ StreamNew }
+                />
+                <Route
+                    exact
+                    path="/edit/:id"
+                    component={ StreamView }
+                />
+                <Route
+                    exact
+                    path="/show/:id"
+                    component={ StreamShow }
+                />
+                <Route
+                    exact
+                    path="/delete/:id"
+                    component={ StreamDelete }
+                />
+            </Switch>
         </Suspense>
-    </BrowserRouter>
+    </Router>
 )
 
-export default Router
+export default AppRouter
